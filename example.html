@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JSExtract</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <script type="text/javascript" src="JSExtract.js"></script>
+    <script type="text/javascript">
+      JSExtract.dynamic.append("insert --pull @[a-zA-Z\\s\.,-_]{1,255}", (command) => {
+        console.log(command);
+      });
+      JSExtract.dynamic.append("drop @(-db|--database) @[a-zA-Z\\s\.,-_]{1,255} @[a-zA-Z\\s\.,-_]{1,255}", (command) => {
+        console.log(command);
+      });
+
+      JSExtract.dynamic.search("drop --database esgi password");
+    </script>
+  </body>
+</html>
