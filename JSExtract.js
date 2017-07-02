@@ -2,7 +2,7 @@ var JSExtract = JSExtract || {};
 
 JSExtract.dynamic = ((self) => {
   self.tree = {
-    name: "tree",
+    name: ".",
     type: "root",
     callback: null,
     next: []
@@ -88,6 +88,27 @@ JSExtract.dynamic = ((self) => {
   function _append (preventNode, currentNode) {
     return (preventNode[preventNode.length] = currentNode);
   };
+
+  self.statistic = ((parent, depth) => {
+    if(depth == 1) {
+      document.write(".<br>");
+    }
+
+    if(parent.next != null) {
+      for(let i = 0, len = parent.next.length; i < len; i++) {
+        let startCharacter = i == len - 1 ? "`" : "|";
+
+        if(depth == 1) {
+          document.write(startCharacter + "-- ");
+        } else {
+          document.write(Array(depth).join("|" + Array(4).join("&nbsp;")) + startCharacter + "-- ");
+        }
+
+        document.write(parent.next[i].name + " <small><strong>[" + parent.next[i].type + "]</strong></small><br>");
+        self.statistic(parent.next[i], depth + 1);
+      }
+    }
+  });
 
   return self;
 })(JSExtract || {});

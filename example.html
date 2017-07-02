@@ -3,18 +3,26 @@
   <head>
     <title>JSExtract</title>
     <meta charset="utf-8">
+    <style type="text/css">
+      body { font-family: courier; font-size: 14px; }
+    </style>
   </head>
   <body>
     <script type="text/javascript" src="JSExtract.js"></script>
     <script type="text/javascript">
-      JSExtract.dynamic.append("insert --pull @[a-zA-Z\\s\.,-_]{1,255}", (command) => {
-        console.log(command);
-      });
-      JSExtract.dynamic.append("drop @(-db|--database) @[a-zA-Z\\s\.,-_]{1,255} @[a-zA-Z\\s\.,-_]{1,255}", (command) => {
-        console.log(command);
-      });
+      JSExtract.dynamic.append("insert pull @[a-zA-Z\\s\.,-_]{1,255}", callback);
+      JSExtract.dynamic.append("insert push @[a-zA-Z\\s\.,-_]{1,255}", callback);
+      JSExtract.dynamic.append("git status", callback);
+      JSExtract.dynamic.append("disconnect -db @[a-zA-Z\\s\.,-_]{1,255} @[a-zA-Z\\s\.,-_]{1,255}", callback);
+      JSExtract.dynamic.append("disconnect -db @[a-zA-Z\\s\.,-_]{1,255} force", callback);
 
       JSExtract.dynamic.search("drop --database esgi password");
+
+      JSExtract.dynamic.statistic(JSExtract.dynamic.tree, 1);
+
+      function callback(command) {
+        console.log(command);
+      }
     </script>
   </body>
 </html>
