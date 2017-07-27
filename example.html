@@ -13,15 +13,15 @@
       JSExtract.dynamic.append("insert pull @[a-zA-Z\\s\.,-_]{1,255}", callback);
       JSExtract.dynamic.append("insert push @[a-zA-Z\\s\.,-_]{1,255}", callback);
       JSExtract.dynamic.append("git status", callback);
-      JSExtract.dynamic.append("disconnect -db @[a-zA-Z\\s\.,-_]{1,255} @[a-zA-Z\\s\.,-_]{1,255}", callback);
-      JSExtract.dynamic.append("disconnect -db @[a-zA-Z\\s\.,-_]{1,255} force", callback);
+      JSExtract.dynamic.append("drop -db @[a-zA-Z\\s\.,-_]{1,255} @[a-zA-Z\\s\.,-_]{1,255}", callback);
+      JSExtract.dynamic.append("drop -db @[a-zA-Z\\s\.,-_]{1,255} force", callback);
 
-      JSExtract.dynamic.search("drop --database esgi password");
+      JSExtract.dynamic.search("drop -db esgi password");
 
       JSExtract.dynamic.statistic(JSExtract.dynamic.tree, 1);
 
-      function callback(command) {
-        console.log(command);
+      function callback(command, occurences) {
+        console.log(command, occurences);
       }
     </script>
   </body>

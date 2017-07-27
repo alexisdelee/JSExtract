@@ -41,13 +41,12 @@ JSExtract.dynamic = ((self) => {
         previous = _append(previous.next, node);
       }
     }
-
-    console.log(self.tree);
   });
 
   self.search = ((command) => {
     let nodes = command.match(/[^\s"']+|"([^"]*)"|'([^']*)'/g);
     let previous = self.tree, active;
+    let occurences = [];
 
     for(let i = 0, len = nodes.length; i < len; i++) {
       active = false;
@@ -65,6 +64,8 @@ JSExtract.dynamic = ((self) => {
             let regex = new RegExp("^" + previous.next[j].name.substring(1) + "$", "g");
 
             if(regex.test(nodeName)) {
+              occurences.push(nodeName);
+
               previous = previous.next[j];
               active = true;
               break;
@@ -79,7 +80,7 @@ JSExtract.dynamic = ((self) => {
     }
 
     if(active) {
-      previous.callback(command);
+      previous.callback(command, occurences);
     } else {
       console.log("'" + command + "' is not recognized as an internal command");
     }
