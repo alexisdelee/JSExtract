@@ -90,7 +90,7 @@ JSExtract.dynamic = ((self) => {
     return (preventNode[preventNode.length] = currentNode);
   };
 
-  self.statistic = ((parent, depth) => {
+  self.statistic = ((parent, depth = 1) => {
     if(depth == 1) {
       document.write(".<br>");
     }
